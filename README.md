@@ -1,6 +1,6 @@
 # Repositorio de la API de datos de SISEPUEDE
 
-La siguiente API utiliza los frameworks (FastAPI)[https://fastapi.tiangolo.com/] y (SQLModel)[https://sqlmodel.tiangolo.com/] para desarrollar el servicio REST del modelo de datos de SISEPUEDE.
+La siguiente API utiliza los frameworks [FastAPI](https://fastapi.tiangolo.com/) y [SQLModel](https://sqlmodel.tiangolo.com/) para desarrollar el servicio REST del modelo de datos de SISEPUEDE.
 
 Para ejecutar la aplicación ejecute:
 
