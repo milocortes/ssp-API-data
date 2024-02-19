@@ -1,0 +1,14 @@
+sector,subsector,var_subsector,variable
+AFOLU,Agriculture,Crop Yield Factor,yf_agrc_bevs_and_spices_tonne_ha
+AFOLU,Agriculture,Crop Yield Factor,yf_agrc_cereals_tonne_ha
+AFOLU,Agriculture,Crop Yield Factor,yf_agrc_fibers_tonne_ha
+AFOLU,Agriculture,Crop Yield Factor,yf_agrc_fruits_tonne_ha
+AFOLU,Agriculture,Crop Yield Factor,yf_agrc_herbs_and_other_perennial_crops_tonne_ha
+AFOLU,Agriculture,Crop Yield Factor,yf_agrc_nuts_tonne_ha
+AFOLU,Agriculture,Crop Yield Factor,yf_agrc_other_annual_tonne_ha
+AFOLU,Agriculture,Crop Yield Factor,yf_agrc_other_woody_perennial_tonne_ha
+AFOLU,Agriculture,Crop Yield Factor,yf_agrc_pulses_tonne_ha
+AFOLU,Agriculture,Crop Yield Factor,yf_agrc_rice_tonne_ha
+AFOLU,Agriculture,Crop Yield Factor,yf_agrc_sugar_cane_tonne_ha
+AFOLU,Agriculture,Crop Yield Factor,yf_agrc_tubers_tonne_ha
+AFOLU,Agriculture,Crop Yield Factor,yf_agrc_vegetables_and_vines_tonne_ha

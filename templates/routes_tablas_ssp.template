@@ -1,0 +1,63 @@
+from typing import List
+from fastapi import APIRouter, Depends, HTTPException, Request, status
+from database.connection import get_session, select
+from models.tablas_ssp import *
+
+## Definimos la ruta
+ssp_router = APIRouter(
+    tags=["ssp"]
+)
+
+### Definimos las funciones para agregar registros a las tablas
+{% for i in tablas-%}
+@ssp_router.post("/new/{{i}}")
+async def create_event(new_event : {{i}}, session=Depends(get_session))->dict:
+    session.add(new_event)
+    session.commit()
+    session.refresh(new_event)
+
+    return {
+        "message" : "Event created successfully"
+    }
+
+{% endfor %}
+
+
+### Definimos las funciones para consultar TODOS los registros de las tablas
+{% for i in tablas-%}
+@ssp_router.get("/get_all/{{i}}", response_model=List[{{i}}])
+async def retrieve_all_events(session=Depends(get_session))-> List[{{i}}]:
+    statement = select({{i}})
+    events = session.exec(statement).all()
+    return events
+
+{% endfor %}
+
+## Actualiza registros
+{% for i in tablas-%}
+@ssp_router.put("/edit/{{i}}/{iso_code3}/{year}", response_model={{i}})
+async def update_event(iso_code3 : str, year : int, new_data: SSPBase, session=Depends(get_session))->{{i}}:
+
+    statement = select({{i}}).where({{i}}.iso_code3 == iso_code3).where({{i}}.year == year)
+
+    results = session.exec(statement)
+
+    for i in results:
+        id_consulta = i.id
+
+    event = session.get({{i}}, id_consulta)
+    if event:
+        event_data = new_data.dict(exclude_unset=True)
+        for key, value in event_data.items():
+            setattr(event,key, value)
+        session.add(event)
+        session.commit()
+        session.refresh(event)
+        
+        return event
+    
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                        details="Event with supplied ID does not exist"
+    )
+
+{% endfor %}
