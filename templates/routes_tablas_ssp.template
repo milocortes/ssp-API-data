@@ -33,6 +33,16 @@ async def retrieve_all_events(session=Depends(get_session))-> List[{{i}}]:
 
 {% endfor %}
 
+### Definimos las funciones para consultar los registros de las tablas de un pais
+{% for i in tablas-%}
+@ssp_router.get("/get_country/{{i}}/{iso_code3}", response_model=List[{{i}}])
+async def retrieve_all_events(iso_code3 : str, session=Depends(get_session))-> List[{{i}}]:
+    statement = select({{i}}).where({{i}}.iso_code3 == iso_code3)
+    events = session.exec(statement).all()
+    return events
+
+{% endfor %}
+
 ## Actualiza registros
 {% for i in tablas-%}
 @ssp_router.put("/edit/{{i}}/{iso_code3}/{year}", response_model={{i}})

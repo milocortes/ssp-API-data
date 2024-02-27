@@ -47,6 +47,21 @@ async def retrieve_all_events(session=Depends(get_session))-> List[yf_agrc_cerea
 
 
 
+### Definimos las funciones para consultar los registros de las tablas de un pais
+@ssp_router.get("/get_country/yf_agrc_bevs_and_spices_tonne_ha/{iso_code3}", response_model=List[yf_agrc_bevs_and_spices_tonne_ha])
+async def retrieve_all_events(iso_code3 : str, session=Depends(get_session))-> List[yf_agrc_bevs_and_spices_tonne_ha]:
+    statement = select(yf_agrc_bevs_and_spices_tonne_ha).where(yf_agrc_bevs_and_spices_tonne_ha.iso_code3 == iso_code3)
+    events = session.exec(statement).all()
+    return events
+
+@ssp_router.get("/get_country/yf_agrc_cereals_tonne_ha/{iso_code3}", response_model=List[yf_agrc_cereals_tonne_ha])
+async def retrieve_all_events(iso_code3 : str, session=Depends(get_session))-> List[yf_agrc_cereals_tonne_ha]:
+    statement = select(yf_agrc_cereals_tonne_ha).where(yf_agrc_cereals_tonne_ha.iso_code3 == iso_code3)
+    events = session.exec(statement).all()
+    return events
+
+
+
 ## Actualiza registros
 @ssp_router.put("/edit/yf_agrc_bevs_and_spices_tonne_ha/{iso_code3}/{year}", response_model=yf_agrc_bevs_and_spices_tonne_ha)
 async def update_event(iso_code3 : str, year : int, new_data: SSPBase, session=Depends(get_session))->yf_agrc_bevs_and_spices_tonne_ha:

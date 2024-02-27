@@ -29,17 +29,30 @@ j = r.json()
 
 df_consulta = pd.DataFrame.from_dict(j)
 
+### Cargamos datos de la consulta rest por pais
+pais = "MEX"
+r = requests.get(f"http://0.0.0.0:8080/ssp/get_country/{nom_var}/{pais}")
+j = r.json()
+
+df_consulta = pd.DataFrame.from_dict(j)
+
 ### Probaremos la función de actualización
 ### Cambiaremos los datos de México
 df_consulta.query("iso_code3=='MEX'")
 
 for anio in range(2011, 2020):
-    requests.put(f"http://0.0.0.0:8080/ssp/edit/{nom_var}/MEX/{anio}", json= {'iso_code3': 'MEX', 'nation': 'Mexico', 'year': anio, 'value': 8080})
+
+    requests.put(f"http://0.0.0.0:8080/ssp/edit/{nom_var}/MEX/{anio}", 
+                json= {'iso_code3': 'MEX', 
+                       'nation': 'Mexico', 
+                       'year': anio, 
+                       'value': 1111}
+                )
 
 ### Volvemos a cargar los datos para ver las actualizaciones
 
-r = requests.get(f"http://0.0.0.0:8080/ssp/get_all/{nom_var}")
+r = requests.get(f"http://0.0.0.0:8080/ssp/get_country/{nom_var}/{pais}")
 j = r.json()
 
 df_consulta = pd.DataFrame.from_dict(j)
-df_consulta.query("iso_code3=='MEX'")
+df_consulta
